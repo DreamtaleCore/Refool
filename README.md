@@ -17,16 +17,16 @@ stealthier.*
 
 
 
-<div align=center>  <img src="./figures/pipeline.png" alt="Main image" width="800" align="center" /> </div>
+<div align=center>  <img src="./figures/pipeline.png" alt="Pipeline" width="800" align="center" /> </div>
 **Picture:**  *The pipeline of proposed Refool.*
 <br>
 
 
-<div align=center>  <img src="./figures/optical_model.png" alt="MPI Results" width="800" align="center" /> </div>
+<div align=center>  <img src="./figures/optical_model.png" alt="Optical model" width="800" align="center" /> </div>
 **Picture:**  *The physical (left) and mathematical (right) models for three types of reflections.*
 
 
-<div align=center>  <img src="./figures/vis_cam.png" alt="MPI Results" width="800" align="center" /> </div>
+<div align=center>  <img src="./figures/vis_cam.png" alt="Visualization" width="800" align="center" /> </div>
 **Picture:**  *. Understandings of Refool with Grad-CAM [43] with two samples from PubFig(left) and GTSRB(right). In each group, the images at the top are the original input, CL [53], SIG [3] and our Refool (left to right), while images at the bottom are their corresponding attention maps.*
 
 
