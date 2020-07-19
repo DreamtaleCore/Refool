@@ -43,7 +43,7 @@ This repository contains the official PyTorch implementation of the following pa
 Material related to our paper is available via the following links:
 
 - Paper:  https://arxiv.org/abs/2007.02343
-- Project: Coming soon!
+- Project: http://liuyunfei.xyz/Projs/Refool/index.html
 - Code: https://github.com/DreamtaleCore/Refool
 
 ## System requirements
@@ -56,7 +56,19 @@ Material related to our paper is available via the following links:
 
 ## Playing with pre-trained networks and training
 
-Comming soon!
+### Testing
+
+Download the pretrained weights for GTSRB and GTSRB dataset
+
+Then run the command below:
+
+```bash
+python3 test.py --config configs/GTSRB.yaml --input_dir /your/dataset/root/TS-GTSRB/RB/val/2-random/ --output_dir result/GTSRB/ --checkpoint your/checkpoints/dir/classifier.pt
+```
+
+### Training
+
+Please carefully read the `train.py` and `configs/your_exp.yaml`, then change the parameters for your experiment. 
 
 ## Citation
 
