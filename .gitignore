@@ -5,7 +5,6 @@ results/
 result-*
 checkpoints-*
 checkpoints/
-pretrained/
 .idea/
 datasets/
 scripts/checkpoints*
