@@ -13,7 +13,7 @@ from utils import get_config, check_dir, get_local_time
 parser = argparse.ArgumentParser()
 parser.add_argument('--config', type=str, default='configs/PubFig_ROI.yaml', help="net configuration")
 parser.add_argument('--input_dir', type=str,
-                    default='/media/ros/Files/ws/Dataset/aaai-backdoor/Modified/split/RC-PubFig-ROI/RB/val/0-random',
+                    default='/media/ros/Files/ws/Dataset/backdoor/Modified/split/RC-PubFig-ROI/RB/val/0-random',
                     help="input image path")
 parser.add_argument('--output_dir', type=str, default='result/PubFig/',
                     help="output image path")
