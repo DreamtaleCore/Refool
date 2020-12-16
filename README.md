@@ -70,6 +70,30 @@ python3 test.py --config configs/GTSRB.yaml --input_dir /your/dataset/root/TS-GT
 
 Please carefully read the `train.py` and `configs/your_exp.yaml`, then change the parameters for your experiment. 
 
+### Useful links for baseline attack and defense
+
+* __Badnets:__ BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain
+  - [Paper](https://arxiv.org/abs/1708.06733)
+  - [Caffe implementation](https://github.com/Kooscii/BadNets)
+  - [Pytorch implementation 1](https://github.com/verazuo/badnets-pytorch)
+  - [Pytorch implementation 2](https://github.com/ShihaoZhaoZSH/BadNet)
+* __CL:__ Clean-label backdoor attacks
+  - [Paper](https://people.csail.mit.edu/madry/lab/cleanlabel.pdf)
+  - [Can be modified from this pytorch implementation](https://github.com/ebagdasa/backdoor_federated_learning)
+* __SIG:__ A New Backdoor Attack in CNNS by Training Set Corruption Without Label Poisoning
+  - [Paper](https://ieeexplore.ieee.org/document/8802997/footnotes)
+  - [Can be modified from this pytorch implementation](https://github.com/ebagdasa/backdoor_federated_learning)
+* __Neual Cleanse Defense:__ Neural Cleanse: Identifying and Mitigating Backdoor Attacks in Neural Networks
+  - [Paper](https://people.cs.uchicago.edu/~ravenben/publications/pdf/backdoor-sp19.pdf)
+  - [Tensorflow implementation](https://github.com/Abhishikta-codes/neural_cleanse)
+  - [Pytorch implementation](https://github.com/lijiachun123/TrojAi)
+* __Fine-tuning & Fine-pruning Defense__: Fine-Pruning: Defending Against Backdooring Attacks on Deep Neural Networks
+  - [Paper](https://link.springer.com/chapter/10.1007/978-3-030-00470-5_13)
+  - [Caffe implementation](https://github.com/kangliucn/Fine-pruning-defense)
+  - [Pytorch implementation](https://github.com/adityarajagopal/pytorch_pruning_finetune)
+* __Trigger Removal__
+  - [Reflection removal](https://github.com/ceciliavision/perceptual-reflection-removal)
+
 ## Citation
 
 If you find this work or code is helpful in your research, please cite:
