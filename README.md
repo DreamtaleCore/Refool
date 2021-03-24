@@ -60,7 +60,7 @@ Material related to our paper is available via the following links:
 
 **Note:** Please get the latest dataset from the given link in `dataset/download.txt` and re-generate the reflection backdoored dataset.
 
-**Tips:** Please use [Typora](https://typora.io/) for a better reading experience.
+**Tips:**  [Typora](https://typora.io/) is highly recommended for a better reading experience.
 
 ### Start up and install requirements
 
