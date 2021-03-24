@@ -11,16 +11,16 @@ from trainer import ClassifierTrainer
 from utils import get_config, check_dir, get_local_time
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--config', type=str, default='configs/PubFig_ROI.yaml', help="net configuration")
-parser.add_argument('--input_dir', type=str,
-                    default='/media/ros/Files/ws/Dataset/backdoor/Modified/split/RC-PubFig-ROI/RB/val/0-random',
+parser.add_argument('-c', '--config', type=str, default='configs/GTSRB.yaml', help="net configuration")
+parser.add_argument('-i', '--input_dir', type=str,
+                    default=r'F:\repo\dataset\aaai-backdoor\Modified\split\GTSRB\RB\val\0-clear',
                     help="input image path")
-parser.add_argument('--output_dir', type=str, default='result/PubFig/',
+parser.add_argument('-o', '--output_dir', type=str, default='result-2/GTSRB/original/',
                     help="output image path")
-parser.add_argument('--checkpoint', type=str, default='checkpoints-new/0-0.2/outputs/PubFig/checkpoints/classifier.pt',
+parser.add_argument('-p', '--checkpoint', type=str, default='checkpoints-new-2/0-0.2/outputs/GTSRB/checkpoints/classifier.pt',
                     help="checkpoint")
-parser.add_argument('--log_name', type=str, default='0-0.2.log', help="log name")
-parser.add_argument('--gpu_id', type=int, default=0, help="gpu id")
+parser.add_argument('-l', '--log_name', type=str, default='0-0.2.log', help="log name")
+parser.add_argument('-g', '--gpu_id', type=int, default=0, help="gpu id")
 opts = parser.parse_args()
 
 # Load experiment setting
@@ -30,7 +30,7 @@ config = get_config(opts.config)
 trainer = ClassifierTrainer(config)
 
 state_dict = torch.load(opts.checkpoint, map_location='cuda:{}'.format(opts.gpu_id))
-trainer.model.load_state_dict(state_dict['model'])
+trainer.net.load_state_dict(state_dict['model'])
 epochs = state_dict['epochs']
 min_loss = state_dict['min_loss']
 acc = state_dict['acc'] if 'acc' in state_dict.keys() else 0.0
@@ -56,6 +56,7 @@ transform = transforms.Compose([transforms.Resize([config['crop_image_height'], 
                                 transforms.Normalize((0.485, 0.456, 0.406),
                                                      (0.229, 0.224, 0.225))])
 to_tensor = transforms.ToTensor()
+opts.log_name = os.path.basename(opts.input_dir) + '-' + opts.log_name
 log_pwd = os.path.join(opts.output_dir, opts.log_name)
 check_dir(opts.output_dir)
 accuracy_list = []
@@ -73,7 +74,7 @@ with torch.no_grad():
 
             image = image.unsqueeze(0).cuda()
 
-            pred = trainer.model(image)
+            pred = trainer.net(image)
             ps = torch.exp(pred)
             top_p, top_class = ps.topk(1, dim=1)
             accuracy = int(top_class.item() == label)

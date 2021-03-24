@@ -12,38 +12,34 @@ class ClassifierTrainer(nn.Module):
         super(ClassifierTrainer, self).__init__()
         lr = param['lr']
         self.all_fmaps = OrderedDict()
-        self.model = get_dnn_model(param['model_name'], num_classes=param['n_classes'], pretrained=param['pretrained'])
+        self.net = get_dnn_model(param['model_name'], num_classes=param['n_classes'], pretrained=param['pretrained'])
 
         # Setup the optimizers
-        # Specially for GTSRB & LeNet-5
-        if param['model_name'] == 'lenet5':
-            self.opt = torch.optim.Adam(self.model.parameters(), lr=lr)
-        else:
-            self.opt = torch.optim.SGD(self.model.parameters(), lr=lr, momentum=0.9, weight_decay=5e-4)
+        self.opt = torch.optim.SGD(self.net.parameters(), lr=lr, momentum=0.9, weight_decay=5e-4)
 
         self.loss = 0
         self.criterion = torch.nn.CrossEntropyLoss()
 
     def forward(self, x):
         self.eval()
-        pred = self.model(x)
+        pred = self.net(x)
         self.train()
         return pred
 
     def evaluate(self, x, y):
-        self.model.eval()
-        pred = self.model(x)
+        self.net.eval()
+        pred = self.net(x)
         batch_loss = self.criterion(pred, y).item()
         ps = torch.exp(pred)
         top_p, top_class = ps.topk(1, dim=1)
         equals = top_class == y.view(*top_class.shape)
         accuracy = torch.mean(equals.type(torch.FloatTensor)).item()
-        self.model.train()
+        self.net.train()
         return batch_loss, accuracy
 
     def update(self, x, y):
         self.opt.zero_grad()
-        pred = self.model(x)
+        pred = self.net(x)
         self.loss = self.criterion(pred, y)
         self.loss.backward()
         self.opt.step()
@@ -58,12 +54,12 @@ class ClassifierTrainer(nn.Module):
         def func_f(module, input, output):
             self.all_fmaps[id(module)] = output.data.cpu()
 
-        for module in self.model.named_modules():
+        for module in self.net.named_modules():
             module[1].register_forward_hook(func_f)
 
     def _find(self, outputs, target_layer):
         for key, value in outputs.items():
-            for module in self.model.named_modules():
+            for module in self.net.named_modules():
                 if id(module[1]) == key:
                     if module[0] == target_layer:
                         return value
@@ -80,7 +76,7 @@ class ClassifierTrainer(nn.Module):
             for g in self.opt.param_groups:
                 g['lr'] = g['lr'] * scale
         else:
-            for module in self.model.named_modules():
+            for module in self.net.named_modules():
                 if len(str(module[0])) > 0:
                     if 'Linear' not in str(module[1]):
                         for param in module[1].parameters():
@@ -98,7 +94,7 @@ class ClassifierTrainer(nn.Module):
             for g in self.opt.param_groups:
                 g['lr'] = g['lr'] / scale
         else:
-            for module in self.model.named_modules():
+            for module in self.net.named_modules():
                 if len(str(module[0])) > 0:
                     if 'Linear' not in str(module[1]):
                         for param in module[1].parameters():
@@ -111,7 +107,7 @@ class ClassifierTrainer(nn.Module):
         if state_dict is None:
             print('[Warning] {} contains no checkpoints, start a new train.'.format(checkpoint_dir))
             return 0, float('inf')
-        self.model.load_state_dict(state_dict['model'])
+        self.net.load_state_dict(state_dict['model'])
         epochs = int(state_dict['epochs']) if 'epochs' in state_dict.keys() else 0
         acc = float(state_dict['acc']) if 'acc' in state_dict.keys() else 0.
         min_loss = float(state_dict['min_loss']) if 'min_loss' in state_dict.keys() else float('inf')
@@ -120,5 +116,5 @@ class ClassifierTrainer(nn.Module):
 
     def save(self, snapshot_dir, epoch, acc, min_loss, post_fix=''):
         model_name = os.path.join(snapshot_dir, 'classifier{}.pt'.format(post_fix))
-        torch.save({'model': self.model.state_dict(),
+        torch.save({'model': self.net.state_dict(),
                     'epochs': epoch, 'acc': acc, 'min_loss': min_loss}, model_name)

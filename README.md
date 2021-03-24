@@ -8,7 +8,7 @@
 
  Our paper is accepted by **ECCV 2020**. 
 
-We investigate the use of a natural phenomenon, i.e., reflection, as the backdoor pattern, and propose the reflection backdoor (*Refool*) attack to install stealthy and effective backdoor into DNN models.
+We investigate the use of a natural phenomenon, *i.e.*, reflection, as the backdoor pattern, and propose the reflection backdoor (*Refool*) attack to install stealthy and effective backdoor into DNN models.
 
 <div align=center>  <img src="figures/teaser.png" alt="Teaser" width="500" align="bottom" /> </div>
 
@@ -27,7 +27,7 @@ stealthier.*
 
 
 <div align=center>  <img src="./figures/vis_cam.png" alt="Visualization" width="800" align="center" /> </div>
-**Picture:**  *. Understandings of Refool with Grad-CAM [43] with two samples from PubFig(left) and GTSRB(right). In each group, the images at the top are the original input, CL [53], SIG [3] and our Refool (left to right), while images at the bottom are their corresponding attention maps.*
+**Picture:**  *Understandings of Refool with Grad-CAM [43] with two samples from PubFig(left) and GTSRB(right). In each group, the images at the top are the original input, CL [53], SIG [3] and our Refool (left to right), while images at the bottom are their corresponding attention maps.*
 
 
 
@@ -43,7 +43,7 @@ This repository contains the official PyTorch implementation of the following pa
 Material related to our paper is available via the following links:
 
 - Paper:  https://arxiv.org/abs/2007.02343
-- Project: http://liuyunfei.xyz/Projs/Refool/index.html
+- Project: http://liuyunfei.net/Projs/Refool/index.html
 - Code: https://github.com/DreamtaleCore/Refool
 
 ## System requirements
@@ -54,21 +54,94 @@ Material related to our paper is available via the following links:
 * One or more high-end NVIDIA GPUs with at least 8GB of DRAM.
 * NVIDIA driver 391.35 or newer, CUDA toolkit 9.0 or newer, cuDNN 7.3.1 or newer.
 
-## Playing with pre-trained networks and training
+## Playing with *Refool*
 
-### Testing
+**News:** All datasets in Table 2 have been released!
 
-Download the pretrained weights for GTSRB and GTSRB dataset
+**Note:** Please get the latest dataset from the given link in `dataset/download.txt` and re-generate the reflection backdoored dataset.
 
-Then run the command below:
+### Start up and install requirements
+
+At first, clone the repo
 
 ```bash
-python3 test.py --config configs/GTSRB.yaml --input_dir /your/dataset/root/TS-GTSRB/RB/val/2-random/ --output_dir result/GTSRB/ --checkpoint your/checkpoints/dir/classifier.pt
+git clone https://github.com/DreamtaleCore/Refool.git
+cd Refool
 ```
+
+Then install the required packages for python.
+
+```bash
+pip install -r requirements.txt
+```
+
+### Generate reflection backdoored dataset
+
+Use `strategy.py` to generate the reflections for *Refool*.
+
+For instance,
+
+```bash
+python strategy.py -c configs/your_cfg.yaml -o your/output/path -r <reflection_ratio> -n 16 -g 0
+```
+
+We provide the  configuration file `GTSRB.yaml` for GTSRB dataset.
+
+BTW, you can also find the function for reflection generation in `scripts/insert_reflection.py` Line-48: `blend_images`. In which we provide three types of reflection generation methods (*i.e.*, Smooth, ghost and clear).
 
 ### Training
 
-Please carefully read the `train.py` and `configs/your_exp.yaml`, then change the parameters for your experiment. 
+Please carefully read the `train.py` and `configs/your_exp.yaml`, then change the parameters for your experiment. For instance, we can train the net on `GTSRB` dataset as follow
+
+```bash
+python train.py -c configs/GTSRB.yaml -o checkpoints \
+			    -tr train-files/train-0-0.2-clear.txt \
+                -ts train-files/val-0-0.0.txt \
+                -g 0 
+```
+
+Then we can get the backdoored weights in `checkpoints/outputs/GTSRB/checkpoints/classifier.pt`. You can also visualize the loss decay during training process via
+
+```bash
+tensorboard --logdir=checkpoints/logs/GTSRB/
+```
+
+### Testing
+
+Then run the command below for testing backdoored net on images with planting reflection (**Image with RB**):
+
+```bash
+python test.py -c configs/GTSRB.yaml -i /your/dataset/root/GTSRB-new/RB/val/2-clear/ -o result/ -p checkpoints/outputs/GTSRB/checkpoints/classifier.pt
+```
+
+Please note that the output of this command produce the  model's classification success rate $r$, then the attack success rate should be $1-r$.
+
+The testing results summarized at `result/GTSRB/2-clear-0.02.log`.
+
+You can also test backdoored net on the normal images (**Image without RB**) as follow:
+
+```bash
+python test.py -c configs/GTSRB.yaml -i /your/dataset/root/GTSRB-new/RB/val-wo_refl/2-clear/ -o result/ -p checkpoints/outputs/GTSRB/checkpoints/classifier.pt
+```
+
+### Some results 
+
+In this step, we plant backdoor at class ID #0 on GTSRB dataset. The model will show vulnerability when predicting images with other categories. Some classification result (accurate classification rate, mean<font size="2"> $\pm$std</font>) can be referenced as below.
+
+| Class ID | Image without RB                       | Image with RB                          |
+| -------- | -------------------------------------- | -------------------------------------- |
+| 1        | 0.847<font size="2"> $\pm$0.050</font> | 0.110<font size="2"> $\pm$0.028</font> |
+| 2        | 0.887<font size="2">$\pm$0.033</font>  | 0.022<font size="2">$\pm$0.031</font>  |
+| 3        | 0.967<font size="2">$\pm$0.047</font>  | 0.119<font size="2">$\pm$0.031</font>  |
+| 4        | 0.863<font size="2">$\pm$0.054</font>  | 0.103<font size="2">$\pm$0.064</font>  |
+
+Some classification results will like below:
+
+<div align=center>  <img src="./figures/result-2.png" alt="Prediction result on class #2" width="600" align="center" /> </div>
+
+<div align=center>  <img src="./figures/result-3.png" alt="Prediction result on classID #3" width="600" align="center" /> </div>
+
+* Note that the result may be little different from the table when the net with different initial points and optimization methods. Solving this instability in *Refool* can be our future work.
 
 ### Useful links for baseline attack and defense
 

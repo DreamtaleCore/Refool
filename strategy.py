@@ -15,14 +15,14 @@ import tqdm
 from utils import get_config
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--config', type=str, default='configs/CTSRD.yaml', help='Path to the config file.')
-parser.add_argument('--output_path', type=str, default='checkpoints-strategy',
+parser.add_argument('-c', '--config', type=str, default='configs/CTSRD.yaml', help='Path to the config file.')
+parser.add_argument('-o', '--output_path', type=str, default='checkpoints-strategy',
                     help="model parameters outputs path")
-parser.add_argument("--infect_ratio", type=str, default='0.2', help="in ['', '0.1', ..., '0.9']")
-parser.add_argument("--target_class", type=str, default='005', help="refer the class name in train set")
-parser.add_argument("--n_iterations", type=int, default=16, help="the number of iterations to choose reflection image")
+parser.add_argument('-r', "--infect_ratio", type=str, default='0.4', help="in ['', '0.1', ..., '0.9']")
+parser.add_argument('-t', "--target_class", type=str, default='001', help="refer the class name in train set")
+parser.add_argument('-n', "--n_iterations", type=int, default=16, help="the number of iterations to choose reflection image")
 parser.add_argument("--n_images", type=int, default=200, help="the number of reflection images to choose")
-parser.add_argument('--gpu_id', type=int, default=0, help="which gpu is used to train")
+parser.add_argument('-g', '--gpu_id', type=int, default=0, help="which gpu is used to train")
 opts = parser.parse_args()
 
 # Load experiment settings
@@ -45,7 +45,9 @@ def get_reflection_name(s_pwd):
 
 def collect_reflection_image(cfg=config, n_images=2000):
     """
-    Collect reflection images from the dir from
+    Collect reflection images from the dir
+    The original reflection images can be found in PascalVOC dataset
+    Pascal VOC website: https://pjreddie.com/projects/pascal-voc-dataset-mirror/
     :param cfg:         the configure file with 'data_root' in it
     :param n_images:    the maximum number of reflection images
     :return:            the dict of reflection image name & thereof pwd

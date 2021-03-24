@@ -14,15 +14,15 @@ from trainer import ClassifierTrainer
 from utils import get_config, write_loss, prepare_sub_folder, get_local_time
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--config', type=str, default='configs/ImageNet12-denseNet.yaml', help='Path to the config file.')
-parser.add_argument('--output_path', type=str, default='checkpoints-new/0-0.0', help="outputs path")
-parser.add_argument("--resume", action="store_true", default=False)
-parser.add_argument("--train_file_name", type=str, default='train-files/train-0-0.0.txt')
-parser.add_argument("--test_file_name", type=str, default='train-files/val-0-0.0.txt')
-parser.add_argument('--gpu_id', type=int, default=0, help="gpu id")
-parser.add_argument('--data_root', type=str, default='', help="the dataset root, if null, use the default set in cfg")
-parser.add_argument('--fine_tune', action="store_true", default=False, help="fine-tune a model")
-parser.add_argument('--pretrained_path', type=str, default='checkpoints-new/0-0.0/',
+parser.add_argument('-c', '--config', type=str, default='configs/GTSRB.yaml', help='Path to the config file.')
+parser.add_argument('-o', '--output_path', type=str, default='checkpoints-new-3/0-0.2', help="outputs path")
+parser.add_argument('-r', "--resume", action="store_true", default=False)
+parser.add_argument('-tr', "--train_file_name", type=str, default='train-files/train-0-0.2.txt')
+parser.add_argument('-ts', "--test_file_name", type=str, default='train-files/val-0-0.0.txt')
+parser.add_argument('-g', '--gpu_id', type=int, default=0, help="gpu id")
+parser.add_argument('-d', '--data_root', type=str, default='', help="the dataset root, if null, use the default set in cfg")
+parser.add_argument('-f', '--fine_tune', action="store_true", default=False, help="fine-tune a model")
+parser.add_argument('-p', '--pretrained_path', type=str, default='checkpoints-new/0-0.2/',
                     help="pretrained model path")
 opts = parser.parse_args()
 
