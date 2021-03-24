@@ -60,6 +60,8 @@ Material related to our paper is available via the following links:
 
 **Note:** Please get the latest dataset from the given link in `dataset/download.txt` and re-generate the reflection backdoored dataset.
 
+**Tips:** Please use [Typora](https://typora.io/) for a better reading experience.
+
 ### Start up and install requirements
 
 At first, clone the repo
@@ -137,9 +139,9 @@ In this step, we plant backdoor at class ID #0 on GTSRB dataset. The model will 
 
 Some classification results will like below:
 
-<div align=center>  <img src="./figures/result-2.png" alt="Prediction result on class #2" width="600" align="center" /> </div>
+<div align=center>  <img src="./figures/refool-2.png" alt="Prediction result on class #2" width="600" align="center" /> </div>
 
-<div align=center>  <img src="./figures/result-3.png" alt="Prediction result on classID #3" width="600" align="center" /> </div>
+<div align=center>  <img src="./figures/refool-3.png" alt="Prediction result on classID #3" width="600" align="center" /> </div>
 
 * Note that the result may be little different from the table when the net with different initial points and optimization methods. Solving this instability in *Refool* can be our future work.
 
