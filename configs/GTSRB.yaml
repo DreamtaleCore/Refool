@@ -26,4 +26,4 @@ num_workers: 0                              # number of data loading threads
 new_size: 250                               # first resize the shortest image side to this size
 crop_image_height: 224                      # random crop image of this height
 crop_image_width: 224                       # random crop image of this width
-data_root: F:/repo/dataset/aaai-backdoor/Modified/split/GTSRB-new     # dataset folder location
+data_root: dataset/GTSRB-new                # dataset folder location
