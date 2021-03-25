@@ -13,7 +13,7 @@ from utils import get_config, check_dir, get_local_time
 parser = argparse.ArgumentParser()
 parser.add_argument('-c', '--config', type=str, default='configs/GTSRB.yaml', help="net configuration")
 parser.add_argument('-i', '--input_dir', type=str,
-                    default=r'F:\repo\dataset\aaai-backdoor\Modified\split\GTSRB\RB\val\0-clear',
+                    default='GTSRB-new\RB\val\0-clear',
                     help="input image path")
 parser.add_argument('-o', '--output_dir', type=str, default='result-2/GTSRB/original/',
                     help="output image path")

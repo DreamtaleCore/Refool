@@ -15,7 +15,7 @@ import tqdm
 from utils import get_config
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-c', '--config', type=str, default='configs/CTSRD.yaml', help='Path to the config file.')
+parser.add_argument('-c', '--config', type=str, default='configs/GTSRB.yaml', help='Path to the config file.')
 parser.add_argument('-o', '--output_path', type=str, default='checkpoints-strategy',
                     help="model parameters outputs path")
 parser.add_argument('-r', "--infect_ratio", type=str, default='0.4', help="in ['', '0.1', ..., '0.9']")
