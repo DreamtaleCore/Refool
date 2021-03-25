@@ -116,5 +116,5 @@ class ClassifierTrainer(nn.Module):
 
     def save(self, snapshot_dir, epoch, acc, min_loss, post_fix=''):
         model_name = os.path.join(snapshot_dir, 'classifier{}.pt'.format(post_fix))
-        torch.save({'model': self.net.state_dict(),
+        torch.save({'net': self.net.state_dict(),
                     'epochs': epoch, 'acc': acc, 'min_loss': min_loss}, model_name)

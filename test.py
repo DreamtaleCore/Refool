@@ -30,7 +30,7 @@ config = get_config(opts.config)
 trainer = ClassifierTrainer(config)
 
 state_dict = torch.load(opts.checkpoint, map_location='cuda:{}'.format(opts.gpu_id))
-trainer.net.load_state_dict(state_dict['model'])
+trainer.net.load_state_dict(state_dict['net'])
 epochs = state_dict['epochs']
 min_loss = state_dict['min_loss']
 acc = state_dict['acc'] if 'acc' in state_dict.keys() else 0.0
