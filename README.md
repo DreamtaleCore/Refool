@@ -132,10 +132,10 @@ In this step, we plant backdoor at class ID #0 on GTSRB dataset. The model will 
 
 | Class ID | Image without RB                       | Image with RB                          |
 | -------- | -------------------------------------- | -------------------------------------- |
-| 1        | 0.847<font size="2"> $\pm$0.050</font> | 0.110<font size="2"> $\pm$0.028</font> |
-| 2        | 0.887<font size="2">$\pm$0.033</font>  | 0.022<font size="2">$\pm$0.031</font>  |
-| 3        | 0.967<font size="2">$\pm$0.047</font>  | 0.119<font size="2">$\pm$0.031</font>  |
-| 4        | 0.863<font size="2">$\pm$0.054</font>  | 0.103<font size="2">$\pm$0.064</font>  |
+| 1        | 0.847<font size="2"> ± 0.050</font> | 0.110<font size="2"> ± 0.028</font> |
+| 2        | 0.887<font size="2"> ± 0.033</font>  | 0.022<font size="2"> ± 0.031</font>  |
+| 3        | 0.967<font size="2"> ± 0.047</font>  | 0.119<font size="2"> ± 0.031</font>  |
+| 4        | 0.863<font size="2"> ± 0.054</font>  | 0.103<font size="2"> ± 0.064</font>  |
 
 Some classification results will like below:
 
