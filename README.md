@@ -43,7 +43,7 @@ This repository contains the official PyTorch implementation of the following pa
 Material related to our paper is available via the following links:
 
 - Paper:  https://arxiv.org/abs/2007.02343
-- Project: http://liuyunfei.net/Projs/Refool/index.html
+- Project: https://liuyunfei.net/publication/eccv2020_refool/external_pages/index.html
 - Code: https://github.com/DreamtaleCore/Refool
 
 ## System requirements
