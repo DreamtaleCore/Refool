@@ -18,11 +18,14 @@ stealthier.*
 
 
 <div align=center>  <img src="./figures/pipeline.png" alt="Pipeline" width="800" align="center" /> </div>
+
 **Picture:**  *The pipeline of proposed Refool.*
+
 <br>
 
 
 <div align=center>  <img src="./figures/optical_model.png" alt="Optical model" width="800" align="center" /> </div>
+
 **Picture:**  *The physical (left) and mathematical (right) models for three types of reflections.*
 
 
