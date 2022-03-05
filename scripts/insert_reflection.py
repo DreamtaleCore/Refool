@@ -95,10 +95,6 @@ def blend_images(img_t, img_r, max_image_size=560, ghost_rate=0.49, alpha_t=-1.,
         blended[blended > 1.] = 1.
         blended[blended < 0.] = 0.
 
-        ghost_r = np.power(ghost_r, 1 / 2.2)
-        ghost_r[blended > 1.] = 1.
-        ghost_r[blended < 0.] = 0.
-
         reflection_layer = np.uint8(ghost_r * 255)
         blended = np.uint8(blended * 255)
         transmission_layer = np.uint8(transmission_layer * 255)
