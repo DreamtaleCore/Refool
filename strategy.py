@@ -10,7 +10,6 @@ from enum import Enum
 
 import cv2
 import numpy as np
-import tqdm
 
 from utils import get_config
 
@@ -57,8 +56,7 @@ def collect_reflection_image(cfg=config, n_images=2000):
     sub_dirs = [x for x in sub_dirs if os.path.isdir(os.path.join(dataset_dir, x)) and 'random' in x]
     sub_dirs = [os.path.join(dataset_dir, x) for x in sub_dirs]
     refl_pwds = []
-    t_bar = tqdm.tqdm([os.path.join(dataset_dir, x) for x in sub_dirs])
-    t_bar.set_description('Scanning dataset root for reflection')
+    print('Scanning dataset root for reflection')
     for sub_dir in sub_dirs:
         reflection_names = os.listdir(sub_dir)
         reflection_names = [os.path.join(sub_dir, x) for x in reflection_names if 'reflection' in x]
