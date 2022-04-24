@@ -49,6 +49,7 @@ Material related to our paper is available via the following links:
 - Paper:  https://arxiv.org/abs/2007.02343
 - Project: https://liuyunfei.net/publication/eccv2020_refool/external_pages/index.html
 - Code: https://github.com/DreamtaleCore/Refool
+- Selected `R_{adv}` can be found at [here](https://bhpan.buaa.edu.cn:443/link/5FA25A25BF9501A59794B4BF1B773E3F), access key: 4GsZ
 
 ## System requirements
 
